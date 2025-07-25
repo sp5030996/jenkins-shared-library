@@ -11,7 +11,6 @@ def call() {
         }
 
         stages {
-
             stage('Build') {
                 steps {
                     script {
@@ -49,6 +48,22 @@ def call() {
                     script {
                         helper.logInfo('Deploying application...')
                         // sh './scripts/deploy.sh'
+                    }
+                }
+            }
+
+            stage('Print Build Notification Template') {
+                steps {
+                    script {
+                        def template = libraryResource('org/myorg/templates/example.txt')
+                        def message = template
+                            .replace('${APP_NAME}', env.APP_NAME)
+                            .replace('${BUILD_STATUS}', currentBuild.currentResult)
+                            .replace('${BRANCH_NAME}', env.BRANCH_NAME ?: 'N/A')
+                            .replace('${BUILD_NUMBER}', env.BUILD_NUMBER)
+                            .replace('${JOB_NAME}', env.JOB_NAME)
+
+                        echo message
                     }
                 }
             }
