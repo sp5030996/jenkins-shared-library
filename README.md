@@ -1,7 +1,7 @@
 
 
 
-(shared-library-repo)
+(shared-library-repo)\n
 ├── vars/
 │   └── myCustomStep.groovy
 ├── src/
