@@ -1,4 +1,8 @@
+import org.myorg.utils.Helper
+
 def call() {
+    def helper = new Helper(this)
+
     pipeline {
         agent any
 
@@ -10,24 +14,30 @@ def call() {
 
             stage('Build') {
                 steps {
-                    echo 'Building the application...'
-                    sh 'mvn clean install'
+                    script {
+                        helper.logInfo('Building the application...')
+                        sh 'mvn clean install'
+                    }
                 }
             }
 
             stage('Test') {
                 steps {
-                    echo 'Running tests...'
-                    sh 'mvn test'
-                    sh 'pwd'
-                    sh 'ls -ltR'
+                    script {
+                        helper.logInfo('Running tests...')
+                        sh 'mvn test'
+                        sh 'pwd'
+                        sh 'ls -ltR'
+                    }
                 }
             }
 
             stage('Archive Artifacts') {
                 steps {
-                    echo 'Archiving build artifacts...'
-                    archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                    script {
+                        helper.logInfo('Archiving build artifacts...')
+                        archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                    }
                 }
             }
 
@@ -36,18 +46,24 @@ def call() {
                     branch 'main'
                 }
                 steps {
-                    echo 'Deploying application...'
-                    // sh './scripts/deploy.sh'
+                    script {
+                        helper.logInfo('Deploying application...')
+                        // sh './scripts/deploy.sh'
+                    }
                 }
             }
         }
 
         post {
             success {
-                echo 'Pipeline completed successfully!'
+                script {
+                    helper.logInfo('Pipeline completed successfully!')
+                }
             }
             failure {
-                echo 'Pipeline failed.'
+                script {
+                    helper.logError('Pipeline failed.')
+                }
             }
         }
     }
