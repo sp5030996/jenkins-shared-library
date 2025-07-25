@@ -2,7 +2,7 @@ package org.myorg.utils
 
 class Helper implements Serializable {
 
-    def steps  // This allows us to access Jenkins pipeline steps like echo, sh, etc.
+    def steps
 
     Helper(steps) {
         this.steps = steps
