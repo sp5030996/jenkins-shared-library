@@ -1,5 +1,4 @@
-# jenkins-shared-library
-jenkins-shared-library
+
 
 
 (shared-library-repo)
