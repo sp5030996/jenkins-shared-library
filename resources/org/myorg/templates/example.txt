@@ -1,0 +1,7 @@
+Build Notification:
+
+Application: ${APP_NAME}
+Build Result: ${BUILD_STATUS}
+Branch: ${BRANCH_NAME}
+Build Number: ${BUILD_NUMBER}
+Job: ${JOB_NAME}
